@@ -1,74 +1,208 @@
-# Graphie
-Graphie is a minimal whiteboard built with React and TypeScript, designed to bring ideas to life on a clean, interactive canvas.
+* {
+  box-sizing: border-box;
+}
 
-_graphie is an ai-assisted project lmao, dont judge pls its just a whiteboard_
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #111317;
+  color: #edf2f7;
+  line-height: 1.4;
+  font-weight: 400;
+}
 
-## Tech Stack
+html, body, #root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: #111317;
+}
 
-- **React** for the UI
-- **TypeScript** for type safety
-- **Vite** for development and building
-- **CSS / HTML** for styling and structure
+body {
+  min-height: 100vh;
+  background: #111317;
+}
 
-## Getting Started
+button {
+  font: inherit;
+}
 
-### Prerequisites
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: #111317;
+  color: #edf2f7;
+}
 
-- Node.js
-- npm
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  padding: 0 18px;
+  background: rgba(17, 19, 23, 0.98);
+}
 
-### Installation
+.title-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-Clone the repository:
+.app-name {
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #dfe7ea;
+}
 
-```bash
-git clone https://github.com/ishan-iso/Graphie.git
-cd Graphie
-```
+.document-name {
+  font-size: 0.8rem;
+  color: rgba(223, 231, 234, 0.7);
+}
 
-Install dependencies:
+.file-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-```bash
-npm install
-```
+.file-menu button,
+.toolbar button,
+.equation-actions button {
+  padding: 7px 10px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(148, 163, 184, 0.04);
+  color: #edf2f7;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
 
-### Development
+.file-menu button:hover,
+.toolbar button:hover,
+.equation-actions button:hover,
+.toolbar .active {
+  border-color: rgba(138, 180, 255, 0.4);
+  background: rgba(138, 180, 255, 0.1);
+}
 
-Start the local development server:
+.workspace {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
 
-```bash
-npm run dev
-```
+.toolbar {
+  width: 90px;
+  border-right: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(17, 19, 23, 0.9);
+  display: flex;
+  flex-direction: column;
+  padding: 12px 10px;
+  gap: 8px;
+}
 
-### Production Build
+.toolbar button {
+  width: 100%;
+  text-align: center;
+}
 
-Build the project for production:
+.canvas-panel {
+  flex: 1;
+  min-width: 0;
+  background: #111317;
+}
 
-```bash
-npm run build
-```
+.canvas-surface {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: crosshair;
+  user-select: none;
+}
 
-Preview the production build:
+.canvas-surface svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #111317;
+}
 
-```bash
-npm run preview
-```
+.canvas-hint {
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
+  font-size: 0.8rem;
+  color: rgba(223, 231, 234, 0.7);
+  background: rgba(17, 19, 23, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
 
-## Project Structure
+.math-sidebar {
+  width: 280px;
+  border-left: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(17, 19, 23, 0.9);
+  padding: 16px 12px;
+}
 
-```text
-Graphie/
-├── public/         
-├── src/              
-├── fonts/            
-├── index.html        
-├── package.json      
-├── package-lock.json 
-├── tsconfig.json     
-├── vite.config.ts    
-└── README.md            
-```
+.sidebar-header {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(223, 231, 234, 0.75);
+  margin-bottom: 10px;
+}
 
-## License
+.equation-card {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 8px;
+  padding: 10px;
+  background: rgba(148, 163, 184, 0.02);
+  margin-bottom: 12px;
+}
 
-_unauthorized copying or distribution of this code or design is strictly prohibited._ type shi
+.equation-expression {
+  font-size: 0.9rem;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  color: #edf2f7;
+  margin-bottom: 6px;
+}
+
+.equation-status {
+  font-size: 0.76rem;
+  color: rgba(223, 231, 234, 0.7);
+  margin-bottom: 8px;
+}
+
+.equation-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.math-footer {
+  margin-top: 12px;
+  font-size: 0.72rem;
+  color: rgba(223, 231, 234, 0.6);
+}
+
+.hidden-input {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .math-sidebar {
+    display: none;
+  }
+
+  .toolbar {
+    width: 72px;
+  }
+}
